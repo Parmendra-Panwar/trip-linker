@@ -1,21 +1,27 @@
 <% layout("/layouts/boilerplate") %>
-<!-- Layoutcode----End---from/Layouts/boilerplate -->
+<!-- Layout file reference -->
 
 <!-- The main item (Card Code)--- Start -->
 <div class="row mt-3">
-  <div class="col-10 offset-1">
-    <h3><b><%= listing.title %></b></h3>
+  <div class="col-12 col-md-10 offset-md-1">
+    <!-- Display the listing title -->
+    <h3 class="text-center"><b><%= listing.title %></b></h3>
   </div>
-  <div class="card col-10 offset-1 show-card">
-    <img
-      src="<%= listing.image.url %>"
-      class="card-img-top show-img"
-      alt="Listing-Image"
+
+  <div class="card col-12 col-md-10 offset-md-1 show-card">
+    <!-- Adjust image for responsiveness and center it -->
+    <img src="<%= listing.image.url %>" class="card-img-top show-img img-fluid"
+    <!-- Bootstrap 'img-fluid' ensures responsiveness -->
+    alt="Listing-Image" style="max-height: 500px; object-fit: cover; width:
+    100%;"
+    <!-- Ensures the image fits nicely -->
     />
     <div class="card-body">
+      <!-- Display the listing description, price, location, and country -->
       <p class="card-text">
         <br />
         <%= listing.description %> <br />
+        <!-- INR Symbol and formatted price -->
         &#8377; <%= listing.price.toLocaleString("en-IN") %> <br />
         <%= listing.location %> <br />
         <%= listing.country %>
@@ -24,30 +30,34 @@
   </div>
   <br />
 </div>
-<!-- The main item (Card Code)--- Start -->
+<!-- The main item (Card Code)--- End -->
 
-<!--// Edit---&---Delete---Button---SectionStart -->
-<div class="btns offset-2">
+<!-- Edit & Delete Button Section--- Start -->
+<div class="btns offset-md-2">
+  <!-- Edit Button: Sends GET request to edit the listing -->
   <form action="/listings/<%=listing._id%>/edit" method="get">
     <button class="btn btn-dark">Edit</button>
   </form>
+
+  <!-- Delete Button: Sends DELETE request to delete the listing -->
   <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
     <button class="btn btn-dark mb-3">Delete</button>
   </form>
 </div>
 <hr />
-<!--// Edit---&---Delete---Button---SectionEnd -->
+<!-- Edit & Delete Button Section--- End -->
 
-<!-- //Reaview----Section----CodeStart---->
-<div class="col-8 offset-2 mb-3">
-  <h4>Leave A Reaview</h4>
+<!-- Review Section--- Start -->
+<div class="col-12 col-md-8 offset-md-2 mb-3">
+  <h4>Leave A Review</h4>
+  <!-- Review form with a POST request to submit a new review -->
   <form
-    action="/listings/<%= listing._id %>/reaviews"
+    action="/listings/<%= listing._id %>/reviews"
     method="post"
     novalidate
     class="needs-validation"
   >
-    <!-- Input Section Code -->
+    <!-- Rating Input: A range input for selecting rating from 1 to 5 -->
     <div class="mb-3 mt-3">
       <label for="rating" class="form-label">Rating</label>
       <input
@@ -55,26 +65,35 @@
         min="1"
         max="5"
         id="rating"
-        name="reaview[rating]"
+        name="review[rating]"
         class="form-range"
       />
     </div>
-    <!-- Text Area Code -->
+
+    <!-- Comments Input: Text area for adding Comments -->
     <div class="mb-3 mt-3">
-      <label for="comment" class="form-label">Comments</label>
+      <label for="Comment" class="form-label">Comments</label>
       <textarea
-        name="review[comment]"
-        id="comment"
+        name="review[Comment]"
+        id="Comment"
         cols="30"
         rows="5"
         class="form-control"
         required
       ></textarea>
+      <!-- Feedback for validation if the Comments field is empty -->
       <div class="invalid-feedback">please put some Comments</div>
       <br />
+      <!-- Submit button for submitting the review form -->
       <button class="btn btn-outline-dark">Submit</button>
     </div>
   </form>
 </div>
+<!-- Review Section--- End -->
 
-<!-- //Reaview----Section----CodeEnd---->
+<!-- Showing Review -->
+<ul>
+  <% for (let review of listing.reviews) { console.log(review.Comment); %>
+  <li><%= review.Comment %> , <%= review.rating %> Stars</li>
+  <% } %>
+</ul>
