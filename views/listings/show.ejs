@@ -70,19 +70,19 @@
       />
     </div>
 
-    <!-- Comments Input: Text area for adding Comments -->
+    <!-- comments Input: Text area for adding comments -->
     <div class="mb-3 mt-3">
-      <label for="Comment" class="form-label">Comments</label>
+      <label for="comment" class="form-label">comments</label>
       <textarea
-        name="review[Comment]"
+        name="review[comment]"
         id="Comment"
         cols="30"
         rows="5"
         class="form-control"
         required
       ></textarea>
-      <!-- Feedback for validation if the Comments field is empty -->
-      <div class="invalid-feedback">please put some Comments</div>
+      <!-- Feedback for validation if the comments field is empty -->
+      <div class="invalid-feedback">please put some comments</div>
       <br />
       <!-- Submit button for submitting the review form -->
       <button class="btn btn-outline-dark">Submit</button>
@@ -92,8 +92,12 @@
 <!-- Review Section--- End -->
 
 <!-- Showing Review -->
+<% if (Array.isArray(listing.reviews) && listing.reviews.length) { %>
 <ul>
-  <% for (let review of listing.reviews) { console.log(review.Comment); %>
-  <li><%= review.Comment %> , <%= review.rating %> Stars</li>
+  <% for (let review of listing.reviews) { %>
+  <li><%= console.log(review.comment) %></li>
   <% } %>
 </ul>
+<% } else { %>
+<p>No reviews available.</p>
+<% } %>
