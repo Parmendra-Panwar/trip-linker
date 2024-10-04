@@ -1,9 +1,12 @@
 <% layout("/layouts/boilerplate") %>
+<!-- Layoutcode----End---from/Layouts/boilerplate -->
+
+<!-- The main item (Card Code)--- Start -->
 <div class="row mt-3">
-  <div class="col-8 offset-2">
+  <div class="col-10 offset-1">
     <h3><b><%= listing.title %></b></h3>
   </div>
-  <div class="card col-8 offset-2 show-card">
+  <div class="card col-10 offset-1 show-card">
     <img
       src="<%= listing.image.url %>"
       class="card-img-top show-img"
@@ -21,6 +24,9 @@
   </div>
   <br />
 </div>
+<!-- The main item (Card Code)--- Start -->
+
+<!--// Edit---&---Delete---Button---SectionStart -->
 <div class="btns offset-2">
   <form action="/listings/<%=listing._id%>/edit" method="get">
     <button class="btn btn-dark">Edit</button>
@@ -29,10 +35,19 @@
     <button class="btn btn-dark mb-3">Delete</button>
   </form>
 </div>
+<hr />
+<!--// Edit---&---Delete---Button---SectionEnd -->
+
+<!-- //Reaview----Section----CodeStart---->
 <div class="col-8 offset-2 mb-3">
-  <hr />
   <h4>Leave A Reaview</h4>
-  <form action="/listings/<%= listing._id %>/reaviews" method="post">
+  <form
+    action="/listings/<%= listing._id %>/reaviews"
+    method="post"
+    novalidate
+    class="needs-validation"
+  >
+    <!-- Input Section Code -->
     <div class="mb-3 mt-3">
       <label for="rating" class="form-label">Rating</label>
       <input
@@ -44,6 +59,7 @@
         class="form-range"
       />
     </div>
+    <!-- Text Area Code -->
     <div class="mb-3 mt-3">
       <label for="comment" class="form-label">Comments</label>
       <textarea
@@ -52,9 +68,13 @@
         cols="30"
         rows="5"
         class="form-control"
-      ></textarea
-      ><br />
+        required
+      ></textarea>
+      <div class="invalid-feedback">please put some Comments</div>
+      <br />
       <button class="btn btn-outline-dark">Submit</button>
     </div>
   </form>
 </div>
+
+<!-- //Reaview----Section----CodeEnd---->
