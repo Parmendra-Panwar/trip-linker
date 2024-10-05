@@ -8,13 +8,13 @@
     <h3 class="text-center"><b><%= listing.title %></b></h3>
   </div>
 
-  <div class="card col-12 col-md-10 offset-md-1 show-card">
+  <div class="card col-12 col-md-10 offset-md-1 show-card listing-card">
     <!-- Adjust image for responsiveness and center it -->
-    <img src="<%= listing.image.url %>" class="card-img-top show-img img-fluid"
-    <!-- Bootstrap 'img-fluid' ensures responsiveness -->
-    alt="Listing-Image" style="max-height: 500px; object-fit: cover; width:
-    100%;"
-    <!-- Ensures the image fits nicely -->
+    <img
+      src="<%= listing.image.url %>"
+      class="card-img-top show-img img-fluid"
+      alt="Listing-Image"
+      style="max-height: 500px; object-fit: cover; width: 100%"
     />
     <div class="card-body">
       <!-- Display the listing description, price, location, and country -->
@@ -92,12 +92,27 @@
 <!-- Review Section--- End -->
 
 <!-- Showing Review -->
-<% if (Array.isArray(listing.reviews) && listing.reviews.length) { %>
-<ul>
-  <% for (let review of listing.reviews) { %>
-  <li><%= console.log(review.comment) %></li>
+<% if (Array.isArray(reviews) && reviews.length) { %>
+<p><b>All Reviews</b></p>
+<div class="row">
+  <% for (let review of reviews) { %>
+  <div class="card col-5 mb-3 ms-3">
+    <div class="card-body">
+      <h5 class="card-title">Pawas</h5>
+      <p class="card-text"><%= review.comment %></p>
+      <p class="card-text"><%= review.rating %> Stars</p>
+    </div>
+    <!-- delete Review-->
+    <form
+      class="mb-3"
+      method="post"
+      action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+    >
+      <button class="btn btn-sm btn-dark">Delete</button>
+    </form>
+  </div>
   <% } %>
-</ul>
+</div>
 <% } else { %>
 <p>No reviews available.</p>
 <% } %>
