@@ -92,10 +92,10 @@
 <!-- Review Section--- End -->
 
 <!-- Showing Review -->
-<% if (Array.isArray(reviews) && reviews.length) { %>
+
+<% if (listing.reviews.length) { %> <% listing.reviews.forEach(review => { %>
 <p><b>All Reviews</b></p>
 <div class="row">
-  <% for (let review of reviews) { %>
   <div class="card col-5 mb-3 ms-3">
     <div class="card-body">
       <h5 class="card-title">Pawas</h5>
@@ -111,8 +111,7 @@
       <button class="btn btn-sm btn-dark">Delete</button>
     </form>
   </div>
-  <% } %>
 </div>
-<% } else { %>
+<% }); %> <% } else { %>
 <p>No reviews available.</p>
 <% } %>
