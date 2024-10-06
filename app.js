@@ -6,6 +6,9 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const connectDB = require("./config/db");
 const cookieParser = require("cookie-parser");
+const  session = require("express-session");
+
+
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js")
@@ -19,19 +22,29 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(cookieParser("secretcode"));
+app.use(session({secret: "amiTumakeBhaloBasi", resave: false, saveUninitialized: true}))
 
 app.use("/listings", listings)
 app.use("/listings/:id/reviews", reviews)
 
-//cookies
-app.get("/cookies", (req, res) => {
-  res.cookie("made-in", "india", { signed: true });
-  res.send("Cookies set");
+app.get("/sessionCount", (req,res)=>{
+  if(req.session.count){
+    req.session.count++;
+  }else{
+    req.session.count = 1;
+  }
+  res.send(`Session Count ${req.session.count}`);
 })
-app.get("/checkforcookies", (req, res) => {
-  console.log(req.signedCookies);
-  res.send("verified");
-})
+
+
+
+
+
+
+
+
+
+
 
 //root route landing page
 app.get("/", (req, res) => {

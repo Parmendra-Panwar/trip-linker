@@ -1,0 +1,9 @@
+//cookies
+app.get("/cookies", (req, res) => {
+  res.cookie("made-in", "india", { signed: true });
+  res.send("Cookies set");
+})
+app.get("/checkforcookies", (req, res) => {
+  console.log(req.signedCookies);
+  res.send("verified");
+})
