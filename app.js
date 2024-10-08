@@ -10,10 +10,11 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-
 const User = require("./models/user");
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js")
+
+const listingsRouter = require("./routes/listing.js");
+const reviewsRouter = require("./routes/review.js");
+const usersRouter = require("./routes/users.js")
 // MongoDB connection
 connectDB();
 
@@ -44,22 +45,23 @@ app.use(cookieParser("secretcode"));
 app.use(session(sessionOptions))
 app.use(flash());
 //A&A
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//Flash
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
 })
 
-app.use("/listings", listings)
-app.use("/listings/:id/reviews", reviews)
 
+app.use("/listings", listingsRouter);
+app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/", usersRouter);
 
 
 //rendom

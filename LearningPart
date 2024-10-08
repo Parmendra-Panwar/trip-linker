@@ -42,3 +42,13 @@ app.get("/hello", (req, res) => {
   res.locals.ErrMsg = req.flash("Error");
   res.render("flas.ejs", { name: req.session.name });
 })
+
+
+//damidataSave
+app.get("/dami", async (req, res, next) => {
+  let fakeUser = new User({
+    email: "student@gmail.com",
+    username: "paramveer",
+  })
+  let registeredUser = await User.register(fakeUser, "helloWorld"); res.send(registeredUser);
+})
