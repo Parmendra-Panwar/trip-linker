@@ -39,7 +39,11 @@ const listingSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Review',
     }
-  ]
+  ],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 

@@ -28,7 +28,7 @@ router.get(
   "/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate('reviews');
+    const listing = await Listing.findById(id).populate('reviews').populate("user");
     if (!listing) {
       req.flash('error', "Listing are you requested for does not exist"
       )
@@ -54,7 +54,7 @@ router.get(
   })
   res.redirect("/listings");
 })*/
-//way2
+//way2//new user created
 router.post(
   "/", isloggedIn,
   validateListing,
@@ -68,6 +68,7 @@ router.post(
     //   throw new ExpressError(400, result.error);
     // }
     const newList = new Listing(req.body.listing);
+    newList.user = req.user._id;
     await newList.save();
     req.flash('success', "New Listing Created");
     res.redirect("/listings");
