@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
+const { saveRedirect } = require("../Validators/isAthen.js");
 
 // GET /signup
 router.get("/signup", (req, res) => {
@@ -29,10 +30,14 @@ router.post("/signup", wrapAsync(async (req, res) => {
 
     // Create a new user
     const newUser = new User({ email, username });
-    await User.register(newUser, password);
-
-    req.flash("success", "Welcome to WonderLand!");
-    res.redirect("/listings");
+    const registeredUser = await User.register(newUser, password);
+    req.login(registeredUser, (err) => {
+      if (err) {
+        return next();
+      }
+      req.flash("success", "Welcome to WonderLand!");
+      res.redirect("/listings");
+    })
   } catch (e) {
     // Handle specific errors
     if (e.name === "ValidationError") {
@@ -49,10 +54,17 @@ router.get("/login", (req, res) => {
   res.render("users/login.ejs");
 })
 
-router.post("/login", passport.authenticate("local", { failureRedirect: '/login', failureFlash: true }), async (req, res) => {
-  req.flash("success", "Welcome back to WonderLand!");
-  res.redirect("/listings");
-})
+router.post(
+  "/login", saveRedirect,
+  passport.authenticate("local", {
+    failureRedirect: '/login',
+    failureFlash: true
+  }),
+  async (req, res) => {
+    req.flash("success", "Welcome back to WonderLand!");
+    let returnTo = req.session.returnTo || "/listings";
+    res.redirect(returnTo);
+  })
 
 router.get("/logout", (req, res, next) => {
   req.logout((err) => {
