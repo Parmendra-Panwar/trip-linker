@@ -62,16 +62,28 @@
     <!-- Rating Input: A range input for selecting rating from 1 to 5 -->
     <div class="mb-3 mt-3">
       <label for="rating" class="form-label">Rating</label>
-      <input
-        type="range"
-        min="1"
-        max="5"
-        id="rating"
-        name="review[rating]"
-        class="form-range"
-      />
+      <fieldset class="starability-coinFlip">
+        <input
+          type="radio"
+          id="no-rate"
+          class="input-no-rate"
+          name="review[rating]"
+          value="1"
+          checked
+          aria-label="No rating."
+        />
+        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+        <label for="first-rate1" title="Terrible">1 star</label>
+        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+        <label for="first-rate2" title="Not good">2 stars</label>
+        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+        <label for="first-rate3" title="Average">3 stars</label>
+        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+        <label for="first-rate4" title="Very good">4 stars</label>
+        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+        <label for="first-rate5" title="Amazing">5 stars</label>
+      </fieldset>
     </div>
-
     <!-- comments Input: Text area for adding comments -->
     <div class="mb-3 mt-3">
       <label for="comment" class="form-label">comments</label>
@@ -101,8 +113,11 @@
   <div class="card col-5 mb-3 ms-3">
     <div class="card-body">
       <h5 class="card-title">@<%= review.author.username %></h5>
+      <p
+        class="starability-result card-text"
+        data-rating="<%= review.rating %>"
+      ></p>
       <p class="card-text"><%= review.comment %></p>
-      <p class="card-text"><%= review.rating %> Stars ⭐</p>
     </div>
     <!-- delete Review-->
     <% if(currUser && currUser._id.equals(review.author._id)){%>
