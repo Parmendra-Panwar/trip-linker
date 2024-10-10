@@ -52,3 +52,23 @@ app.get("/dami", async (req, res, next) => {
   })
   let registeredUser = await User.register(fakeUser, "helloWorld"); res.send(registeredUser);
 })
+
+
+//routes listing.js
+/*router.post(("/listings/new"),async (req,res)=>{
+  let {title,description,image,price,country,location} = req.body;
+  let list = new Listing({
+    title:title,
+    description:description,
+    image:image[url],
+    price:price,
+    country:country,
+    location:location,
+  });
+  list.save().then(res=>{
+    console.log(res);
+  }).catch((err)=>{
+    console.log(err);
+  })
+  res.redirect("/listings");
+})*/

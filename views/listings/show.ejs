@@ -32,10 +32,11 @@
 <!-- The main item (Card Code)--- End -->
 
 <!-- Edit & Delete Button Section--- Start -->
+<!-- <%// if(currUser && currUser._id.equals(listing.user._id)){%> -->
 <div class="btns offset-md-2">
   <!-- Edit Button: Sends GET request to edit the listing -->
   <form action="/listings/<%=listing._id%>/edit" method="get">
-    <button class="btn btn-dark">Edit</button>
+    <button class="btn btn-dark btn-edit mt-3">Edit</button>
   </form>
 
   <!-- Delete Button: Sends DELETE request to delete the listing -->
@@ -43,6 +44,8 @@
     <button class="btn btn-dark mb-3">Delete</button>
   </form>
 </div>
+<!-- <%// } %> -->
+
 <hr />
 <!-- Edit & Delete Button Section--- End -->
 
