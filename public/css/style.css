@@ -101,3 +101,6 @@ body{
   padding-left: 0;
   padding-right: 0;
 }
+.previewImage{
+  height: 300px;
+}

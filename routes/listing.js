@@ -11,7 +11,7 @@ const upload = multer({ storage })
 
 router.route("/").get(wrapAsync(listingController.index))
   .post(
-    isloggedIn, (upload.single("image")),
+    isloggedIn, upload.single("image"),
     validateListing,
     wrapAsync(listingController.createNewpost)
   )
@@ -25,6 +25,7 @@ router.route("/:id").get(wrapAsync(listingController.showListing)).delete(
 ).put(
   isloggedIn,
   isOwner,
+  upload.single("image"),
   validateListing,
   wrapAsync(listingController.updateListing)
 );
