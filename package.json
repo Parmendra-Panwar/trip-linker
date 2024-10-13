@@ -1,4 +1,7 @@
 {
+    "engines": {
+      "node":"20.10.0"
+    },
   "name": "wonderlust",
   "version": "1.0.0",
   "description": "",
@@ -14,6 +17,7 @@
     "bootstrap": "^5.3.3",
     "cloudinary": "^1.21.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.0.0",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",

@@ -11,6 +11,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const connectDB = require("./config/db");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const MongoStore = require("connect-mongo")
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -22,12 +23,22 @@ const usersRouter = require("./routes/users.js")
 // MongoDB connection
 connectDB();
 
-//root route landing page
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGO_URL,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 60 * 60,
+})
 
+store.on("error", () => {
+  console.log("Error in MONGO session store", err);
+})
 
 //SessionOptions
 const sessionOptions = {
-  secret: "MySec",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
