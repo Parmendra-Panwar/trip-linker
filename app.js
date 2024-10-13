@@ -23,9 +23,7 @@ const usersRouter = require("./routes/users.js")
 connectDB();
 
 //root route landing page
-app.get("/", (req, res) => {
-  res.send("Hi I am root");
-})
+
 
 //SessionOptions
 const sessionOptions = {
@@ -63,6 +61,9 @@ app.use((req, res, next) => {
   next();
 })
 
+app.get("/", (req, res) => {
+  res.render("home.ejs");
+})
 
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
