@@ -15,7 +15,7 @@ const sendVerificationEmail = (email, verificationCode) => {
   const mailOptions = {
     from: 'parmendrapanwar11@gmail.com',
     to: email,
-    subject: 'WonderLust Email Verification',
+    subject: 'TripLiker Email Verification',
     text: `Your verification code is: ${verificationCode}`
   };
 
@@ -82,7 +82,7 @@ module.exports.verifyCode = async (req, res) => {
         if (err) {
           return next(err);
         }
-        req.flash("success", "Welcome to WonderLust!");
+        req.flash("success", "Welcome to TripLinker!");
         res.redirect("/listings");
       });
   
