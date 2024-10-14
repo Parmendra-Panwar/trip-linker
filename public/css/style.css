@@ -42,7 +42,7 @@ body{
   text-align: center;
   height: 8rem;
   display: flex;
-  background-color: #ff6347;
+  background-color: hwb(0 93% 6% / 0.82);
   flex-wrap: wrap;
   justify-content: center;
   align-items: space-evenly;

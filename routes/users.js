@@ -10,7 +10,7 @@ const userController = require("../controller/user.js");
 router.get("/signup", userController.signUpGET);
 
 // POST /signup
-router.post("/signup", wrapAsync(userController.signUpPOST));
+// router.post("/signup", wrapAsync(userController.signUpPOST));
 
 router.get("/login", userController.loginGET);
 
@@ -25,5 +25,7 @@ router.post(
 );
 
 router.get("/logout", userController.logoutUser);
+
+// router.post("/verify-code", userController.verifyCodePOST);
 
 module.exports = router;

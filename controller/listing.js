@@ -32,7 +32,7 @@ module.exports.showListing = async (req, res) => {
   const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(placeName)}&format=json&limit=1`;
 
   try {
-    const response = await axios.get(nominatimUrl, { timeout: 8000 }); // Increase timeout
+    const response = await axios.get(nominatimUrl, { timeout: 30000 }); // Increase timeout
     const data = response.data;
 
     const latitude = data.length > 0 ? data[0].lat : 20.5937; // Default to India's latitude
