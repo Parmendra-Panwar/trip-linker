@@ -64,6 +64,7 @@ module.exports.createNewpost = async (req, res, next) => {
   // if (result.error) {
   //   throw new ExpressError(400, result.error);
   // }
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>hi buddy");
   let url = req.file.path;
   let filename = req.file.filename;
   const newList = new Listing(req.body.listing);
